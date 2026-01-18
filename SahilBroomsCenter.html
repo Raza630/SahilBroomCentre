@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahil Broom Centre | Premium Broom Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c5530;
+            --secondary-color: #8b9d6f;
+            --accent-color: #d4a017;
+            --light-color: #f8f9fa;
+            --dark-color: #1a1a1a;
+            --gray-color: #6c757d;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 25px 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            padding: 14px 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--accent-color);
+        }
+
+        .sidebar-menu i {
+            width: 24px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .contact-info {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .contact-info h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .contact-info i {
+            color: var(--accent-color);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px;
+            max-width: calc(100% - 280px);
+        }
+
+        .header {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 28px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--secondary-color);
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--accent-color);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: white;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-img {
+            height: 220px;
+            width: 100%;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .product-description {
+            color: var(--gray-color);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .product-price {
+            color: var(--accent-color);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Location Section */
+        .location-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .map-container {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .location-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .location-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .location-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-info i {
+            color: var(--accent-color);
+            width: 20px;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .header {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location-container,
+            .about-content {
+                flex-direction: column;
+            }
+
+            .map-container,
+            .location-info,
+            .about-text,
+            .about-image {
+                min-width: 100%;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#" class="logo"><i class="fas fa-broom"></i> Sahil Broom Centre</a>
+                <p class="tagline">Quality Broom Since 1987</p>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li><a href="#home" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#products"><i class="fas fa-store"></i> Products</a></li>
+                <li><a href="#about"><i class="fas fa-info-circle"></i> About Us</a></li>
+                <li><a href="#location"><i class="fas fa-map-marker-alt"></i> Location</a></li>
+                <li><a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a></li>
+            </ul>
+
+            <div class="contact-info">
+                <h3><i class="fas fa-headset"></i> Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Mira Datar Dargah Galli Powder Bunder Reay Road Mumbai, 400010
+                </p>
+                <p><i class="fas fa-phone"></i> +91 9892267321</p>
+                <p><i class="fas fa-envelope"></i> sahilbroomcentre.11@gmail.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Sat: 9:00 AM - 9:00 PM</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1>Sahil Broom Centre - Premium Broom Products</h1>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </header>
+
+            <!-- Home Section -->
+            <section class="section" id="home">
+                <h2 class="section-title"><i class="fas fa-star"></i> Welcome to Sahil Broom</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Welcome to Sahil Broom Centre, your trusted source for high-quality Broom since 1987. We
+                            specialize in manufacturing and supplying a wide range of broom products for household,
+                            commercial, and industrial use.</p>
+                        <p>With over 25 years of experience in the industry, we pride ourselves on producing durable,
+                            effective, and affordable cleaning tools that meet the highest standards of quality.</p>
+                        <p>Our commitment to excellence and customer satisfaction has made us a leading name in the
+                            broom manufacturing industry.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=874&q=80"
+                            alt="Broom workshop">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section class="section" id="products">
+                <h2 class="section-title"><i class="fas fa-broom"></i> Our Products</h2>
+                <p>Explore our wide range of high-quality broom products designed for various cleaning needs.</p>
+
+                <div class="products-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1596461404969-9d24c163030a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                                alt="Traditional Broom">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Traditional Straw Broom</h3>
+                            <p class="product-description">Made from natural straw, perfect for sweeping outdoor areas
+                                and rough surfaces.</p>
+                            <p class="product-price">Rs. 450</p>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1616401784845-180882ba9ba8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                                alt="Plastic Broom">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Plastic Bristle Broom</h3>
+                            <p class="product-description">Durable plastic bristles ideal for indoor cleaning on tiles
+                                and smooth surfaces.</p>
+                            <p class="product-price">Rs. 550</p>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                                alt="Angled Broom">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Angled Corner Broom</h3>
+                            <p class="product-description">Specially designed with angled bristles to reach corners and
+                                tight spaces.</p>
+                            <p class="product-price">Rs. 650</p>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1603969072881-b0fc7f3d77d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                                alt="Industrial Broom">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Industrial Heavy-Duty Broom</h3>
+                            <p class="product-description">Extra-wide and sturdy construction for large area cleaning in
+                                commercial spaces.</p>
+                            <p class="product-price">Rs. 850</p>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                                alt="Eco-Friendly Broom">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Eco-Friendly Bamboo Broom</h3>
+                            <p class="product-description">Made from sustainable bamboo materials, environmentally
+                                friendly option.</p>
+                            <p class="product-price">Rs. 750</p>
+                        </div>
+                    </div>
+
+                    <!-- Product 6 -->
+                    <div class="product-card">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1600585154340-963ed7476d07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                                alt="Broom Set">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Premium Broom & Dustpan Set</h3>
+                            <p class="product-description">Complete cleaning set including a high-quality broom and
+                                matching dustpan.</p>
+                            <p class="product-price">Rs. 950</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="section" id="about">
+                <h2 class="section-title"><i class="fas fa-industry"></i> About Our Company</h2>
+                <div class="about-content">
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80"
+                            alt="Our Factory">
+                    </div>
+                    <div class="about-text">
+                        <h3>Our Story</h3>
+                        <p>Sahil Broom Centre was founded in 1987 by Mr. Sahil Ahmed with a vision to provide
+                            high-quality, affordable Broom to the local community. Starting as a small workshop with
+                            just three employees, we have grown into a full-scale manufacturing facility employing over
+                            50 skilled workers.</p>
+
+                        <h3>Our Mission</h3>
+                        <p>To produce durable, effective cleaning tools that make everyday cleaning easier and more
+                            efficient for households and businesses alike.</p>
+
+                        <h3>Quality Assurance</h3>
+                        <p>All our products undergo rigorous quality checks at every stage of production. We use only
+                            the finest materials to ensure longevity and performance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Location Section -->
+            <section class="section" id="location">
+                <h2 class="section-title"><i class="fas fa-map-marked-alt"></i> Our Location</h2>
+                <p>Visit our showroom and factory to see our products firsthand.</p>
+
+                <div class="location-container">
+                    <div class="map-container">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.1141550595557!2d72.84718727418141!3d18.970565255276036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf004edb2465%3A0x6f53aeeadb4082a5!2sSAHIL%20BROOM%20CENTRE!5e0!3m2!1sen!2sin!4v1768660904511!5m2!1sen!2sin"
+                            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+
+                    <div class="location-info">
+                        <h3>Sahil Broom Centre</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong> Mira Datar Dargah Galli
+                            Powder Bunder Reay Road Mumbai, 400010</p>
+                        <p><i class="fas fa-clock"></i> <strong>Business Hours:</strong></p>
+                        <p>Monday - Saturday: 9:00 AM - 9:00 PM</p>
+                        <p>Sunday: 10:00 AM - 4:00 PM</p>
+                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong> +91 9892267321 </p>
+                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong> sahilbroomcentre.11@gmail.com</p>
+                        <p><i class="fas fa-truck"></i> <strong>Delivery:</strong> Free delivery within city limits on
+                            orders above Rs. 3000</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="section" id="contact">
+                <h2 class="section-title"><i class="fas fa-envelope"></i> Contact Us</h2>
+                <p>Have questions or want to place a bulk order? Get in touch with us!</p>
+
+                <div class="about-content" style="margin-top: 20px;">
+
+                    <!-- Updated Contact Form Section -->
+                    <div class="about-text">
+                        <h3>Send us a message</h3>
+                        <form id="contactForm" style="margin-top: 15px;">
+                            <div style="margin-bottom: 15px;">
+                                <label for="name" style="display: block; margin-bottom: 5px; font-weight: 600;">Your
+                                    Name</label>
+                                <input type="text" id="name" name="from_name"
+                                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;"
+                                    placeholder="Enter your name" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="email" style="display: block; margin-bottom: 5px; font-weight: 600;">Your
+                                    Email</label>
+                                <input type="email" id="email" name="from_email"
+                                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;"
+                                    placeholder="Enter your email" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="phone" style="display: block; margin-bottom: 5px; font-weight: 600;">Phone
+                                    Number (Optional)</label>
+                                <input type="tel" id="phone" name="phone"
+                                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;"
+                                    placeholder="Enter your phone number">
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="message" style="display: block; margin-bottom: 5px; font-weight: 600;">Your
+                                    Message</label>
+                                <textarea id="message" name="message" rows="5"
+                                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px;"
+                                    placeholder="Enter your message" required></textarea>
+                            </div>
+                            <button type="submit" id="submitBtn"
+                                style="background-color: var(--primary-color); color: white; border: none; padding: 12px 25px; border-radius: 6px; font-weight: 600; cursor: pointer; transition: background-color 0.3s;">Send
+                                Message</button>
+
+                            <!-- Message container for feedback -->
+                            <div id="formMessage"
+                                style="margin-top: 15px; display: none; padding: 12px; border-radius: 6px; font-weight: 500;">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="about-text">
+                        <h3>Other Ways to Reach Us</h3>
+                        <p><i class="fas fa-phone" style="color: var(--accent-color); margin-right: 10px;"></i>
+                            <strong>Call us:</strong> +91 7666170555</p>
+                        <p><i class="fas fa-whatsapp" style="color: var(--accent-color); margin-right: 10px;"></i>
+                            <strong>WhatsApp:</strong> +91 7977423541</p>
+                        <p><i class="fas fa-envelope" style="color: var(--accent-color); margin-right: 10px;"></i>
+                            <strong>Email:</strong> sahilbroomcentre.11@gmail.com</p>
+
+                        <h3 style="margin-top: 20px;">Follow Us</h3>
+                        <div style="display: flex; gap: 15px; margin-top: 10px;">
+                            <a href="#" style="color: var(--primary-color); font-size: 24px;"><i
+                                    class="fab fa-facebook"></i></a>
+                            <a href="#" style="color: var(--primary-color); font-size: 24px;"><i
+                                    class="fab fa-instagram"></i></a>
+                            <a href="#" style="color: var(--primary-color); font-size: 24px;"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a href="#" style="color: var(--primary-color); font-size: 24px;"><i
+                                    class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; 2023 Sahil Broom Centre. All rights reserved.</p>
+                <p>Quality Broom Since 1987 | Made with <i class="fas fa-heart" style="color: #ff6b6b;"></i> in India
+                </p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Toggle sidebar on mobile
+        document.getElementById('menuToggle').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking on a link (mobile)
+        document.querySelectorAll('.sidebar-menu a').forEach(link => {
+            link.addEventListener('click', function () {
+                if (window.innerWidth <= 992) {
+                    document.getElementById('sidebar').classList.remove('active');
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        
+        // Set active menu item based on scroll position
+        window.addEventListener('scroll', function () {
+            const sections = document.querySelectorAll('section');
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 150)) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize EmailJS with your Public Key
+// Add this at the top of your <script> section, before any other code
+    (function () {
+        // Replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+        emailjs.init('J5mWinXNHKGhAGv0O');
+
+        console.log('EmailJS initialized successfully');
+    })();
+
+    // Contact form submission with EmailJS
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        // Show loading state
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+
+        // Hide any previous messages
+        formMessage.style.display = 'none';
+
+        // Prepare template parameters
+        const templateParams = {
+            from_name: document.getElementById('name').value,
+            from_email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value || 'Not provided',
+            message: document.getElementById('message').value,
+            to_email: document.getElementById('email').value, // Your email from the contact info
+            date_time: new Date().toLocaleString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            })
+        };
+
+        // Send email using EmailJS
+        // Replace 'YOUR_SERVICE_ID' and 'YOUR_TEMPLATE_ID' with your actual IDs
+        emailjs.send('service_2znaov8', 'template_yb7lxmb', templateParams)
+            .then(function (response) {
+                console.log('Email sent successfully!', response.status, response.text);
+
+                // Show success message
+                formMessage.style.display = 'block';
+                formMessage.style.backgroundColor = '#d4edda';
+                formMessage.style.color = '#155724';
+                formMessage.style.border = '1px solid #c3e6cb';
+                formMessage.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully. We\'ll get back to you soon at ' + templateParams.from_email;
+
+                // Reset form
+                document.getElementById('contactForm').reset();
+
+                // Scroll to show the message
+                formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Hide message after 8 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 8000);
+            })
+            .catch(function (error) {
+                console.log('Email sending failed:', error);
+
+                // Show error message
+                formMessage.style.display = 'block';
+                formMessage.style.backgroundColor = '#f8d7da';
+                formMessage.style.color = '#721c24';
+                formMessage.style.border = '1px solid #f5c6cb';
+                formMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Sorry, there was an error sending your message. Please try again or contact us directly at +91 7666170555';
+
+                // Keep the message visible
+                setTimeout(() => {
+                    formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            })
+            .finally(function () {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+    });
+</script>
+</body>
+
+</html>
